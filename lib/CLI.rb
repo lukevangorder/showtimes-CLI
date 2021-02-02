@@ -7,13 +7,14 @@ class CLI
         self.menu
     end
     def menu #the home menu with all options and directory
-        options = ["new_stock", "stock_history", "exit_app"]]
+        options = ["new_stock", "stock_history", "exit_app"]
+        puts ""
         puts "Please select an option:"
         puts "1. Check out a new stock"
         puts "2. Look at your check history"
         puts "3. Exit program"
         input = gets.strip
-        self.send("#{options[input - 1]}")
+        self.send("#{options[input.to_i - 1]}")
     end
     def exit_app #exits application
         puts "Sad to see you go #{@name}! Come back soon!"
@@ -22,9 +23,15 @@ class CLI
     def new_stock #takes a stock symbol and creates a Stock object to gather info
         puts "What is the name of the stock symbol you wish to learn more about?"
         symbol = gets.strip
-        Stock.new(symbol)
+        Stock.new(symbol).print_info
+        self.menu
     end
-    def stock_history #displays all previously searched stocks
+    def stock_history #displays all previously searched stocks, then asks if the user wants to see any of them in detail
+        puts "Okay #{@name}, these are the researched stocks in your history:"
         Stock.print_all
+        puts ""
+        puts "Do you want to see any of these stocks in detail? Type the stock symbol if you'd like to, or say menu to return"
+        
+        self.menu
     end
 end

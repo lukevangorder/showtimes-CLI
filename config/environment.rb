@@ -1,2 +1,6 @@
-require_relative ../Gemfile
+require 'bundler'
+Bundler.require
+
 require_all 'lib'
+require 'open-uri'
+require 'net/http'
