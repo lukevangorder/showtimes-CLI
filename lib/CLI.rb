@@ -30,8 +30,8 @@ class CLI
         puts "Okay #{@name}, these are the researched stocks in your history:"
         Stock.print_all
         puts ""
-        puts "Do you want to see any of these stocks in detail? Type the stock symbol if you'd like to, or say menu to return"
-        
+        puts "Do you want to see any of these stocks in detail? Type the stock symbol if you'd like to, or say menu to  return"
+
         self.menu
     end
 end
