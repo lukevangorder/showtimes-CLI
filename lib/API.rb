@@ -5,7 +5,7 @@ require 'pry'
 class API
     attr_accessor :url, :return_hash
     KEY = "SJX60ELDFC51X4HK"
-    def initialize(symbol, function = "GLOBAL_QUOTE", interval = "1min") #sends HTTP request and recieves the body of the request
+    def initialize(symbol = "", function = "GLOBAL_QUOTE", interval = "1min") #sends HTTP request and recieves the body of the request
         @url = "https://www.alphavantage.co/query?function=#{function}&symbol=#{symbol}&interval=#{interval}&apikey=#{KEY}"
         @return_hash = {}
     end
@@ -17,7 +17,14 @@ class API
         end
         @return_hash
     end
-    def url_for_search
-
+    def url_for_search(keyword)
+        @url = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=#{keyword}&apikey=#{KEY}"
+        uri = URI.parse(url)
+        response = JSON.parse(Net::HTTP.get_response(uri).body)
+        return_array = []
+        response["bestMatches"].each do |match|
+            return_array.push(match)
+        end
+        return_array
+    end
 end
-API.new("GME")

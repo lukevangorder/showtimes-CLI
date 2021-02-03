@@ -7,14 +7,15 @@ class CLI
         self.menu
     end
     def menu #the home menu with all options and directory
-        options = ["new_stock", "stock_history", "clear_history", "update_stock_info", "exit_app"]
+        options = ["new_stock", "find_stock_symbols", "stock_history", "clear_history", "update_stock_info", "exit_app"]
         puts ""
         puts "Please select an option:"
         puts "1. Check out a new stock"
-        puts "2. Look at your check history"
-        puts "3. Clear your history"
-        puts "4. Update all researched stocks"
-        puts "5. Exit program"
+        puts "2. Search for stock symbols"
+        puts "3. Look at your check history"
+        puts "4. Clear your history"
+        puts "5. Update all researched stocks"
+        puts "6. Exit program"
         input = gets.strip
         self.send("#{options[input.to_i - 1]}")
     end
@@ -81,5 +82,11 @@ class CLI
             puts "There are no stocks in your history to update #{@name}!"
             self.menu
         end
+    end
+    def find_stock_symbols
+        puts "Please enter a word to search for possible related stock symbols"
+        input = gets.strip
+        Search.new(input).print_results
+        self.menu
     end
 end
