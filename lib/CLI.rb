@@ -21,8 +21,9 @@ class CLI
         exit
     end
     def new_stock #takes a stock symbol and creates a Stock object to gather info
-        puts "What is the name of the stock symbol you wish to learn more about?"
+        puts "What is the symbol of the stock you wish to learn more about?"
         symbol = gets.strip
+        symbol.upcase!
         Stock.new(symbol).print_info
         self.menu
     end
@@ -30,8 +31,17 @@ class CLI
         puts "Okay #{@name}, these are the researched stocks in your history:"
         Stock.print_all
         puts ""
-        puts "Do you want to see any of these stocks in detail? Type the stock symbol if you'd like to, or say menu to  return"
-
+        puts "Do you want to see any of these stocks in detail? Type the stock symbol if you'd like to, or say menu to return"
+        input = gets.strip
+        if input.downcase == "menu"
+            self.menu
+        else
+            Stock.all.each do |stock|
+                if stock.symbol == input.upcase
+                    stock.print_info
+                end
+            end
+        end
         self.menu
     end
 end
