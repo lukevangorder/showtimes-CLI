@@ -30,21 +30,27 @@ class CLI
         self.menu
     end
     def stock_history #displays all previously searched stocks, then asks if the user wants to see any of them in detail
-        puts "Okay #{@name}, these are the researched stocks in your history:"
-        Stock.print_all
-        puts ""
-        puts "Do you want to see any of these stocks in detail? Type the stock symbol if you'd like to, or say menu to return"
-        input = gets.strip
-        if input.downcase == "menu"
-            self.menu
-        else
-            Stock.all.each do |stock|
-                if stock.symbol == input.upcase
-                    stock.print_info
+        if Stock.all.length > 0
+            puts ""
+            puts "Okay #{@name}, these are the researched stocks in your history:"
+            Stock.print_all
+            puts ""
+            puts "Do you want to see any of these stocks in detail? Type the stock symbol if you'd like to, or say menu to return"
+            input = gets.strip
+            if input.downcase == "menu"
+                self.menu
+            else
+                Stock.all.each do |stock|
+                    if stock.symbol == input.upcase
+                        stock.print_info
+                    end
                 end
             end
+            self.stock_history
+        else
+            puts "You have no stocks in your search history #{@name}!"
+            self.menu
         end
-        self.stock_history
     end
     def clear_history #removes all previously researched stocks
         puts "Are you sure you want to clear your history and erase all previously viewed stocks? (Y/N)"
@@ -59,6 +65,21 @@ class CLI
             self.menu
         end
     end
-    def update_stock_info
+    def update_stock_info #re-requests the api for each existing stock to update their information
+        if Stock.all.length > 0
+            symbols = []
+            Stock.all.each do |stock|
+                symbols << stock.symbol
+            end
+            Stock.delete_all
+            symbols.each do |symbol|
+                Stock.new(symbol)
+            end
+            puts "Stocks in history have been updated!"
+            self.menu
+        else
+            puts "There are no stocks in your history to update #{@name}!"
+            self.menu
+        end
     end
 end
