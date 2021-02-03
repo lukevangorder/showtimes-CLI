@@ -17,5 +17,7 @@ class API
         end
         @return_hash
     end
+    def url_for_search
+
 end
 API.new("GME")
