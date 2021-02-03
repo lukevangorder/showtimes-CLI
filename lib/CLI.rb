@@ -7,12 +7,14 @@ class CLI
         self.menu
     end
     def menu #the home menu with all options and directory
-        options = ["new_stock", "stock_history", "exit_app"]
+        options = ["new_stock", "stock_history", "clear_history", "update_stock_info", "exit_app"]
         puts ""
         puts "Please select an option:"
         puts "1. Check out a new stock"
         puts "2. Look at your check history"
-        puts "3. Exit program"
+        puts "3. Clear your history"
+        puts "4. Update all researched stocks"
+        puts "5. Exit program"
         input = gets.strip
         self.send("#{options[input.to_i - 1]}")
     end
@@ -42,6 +44,21 @@ class CLI
                 end
             end
         end
-        self.menu
+        self.stock_history
+    end
+    def clear_history #removes all previously researched stocks
+        puts "Are you sure you want to clear your history and erase all previously viewed stocks? (Y/N)"
+        input = gets.strip
+        input.upcase!
+        if input == "N"
+            puts "Self destruct cancelled"
+            self.menu
+        elsif input == "Y"
+            Stock.delete_all
+            puts "History deleted"
+            self.menu
+        end
+    end
+    def update_stock_info
     end
 end

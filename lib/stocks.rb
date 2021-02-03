@@ -29,5 +29,8 @@ class Stock
             puts "#{stock.symbol}, trading at #{stock.price}"
         end
     end
+    def self.delete_all
+        @@all = []
+    end
 end
 
