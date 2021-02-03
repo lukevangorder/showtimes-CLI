@@ -8,9 +8,13 @@ class Search
     end
     def print_results
         puts ""
-        puts "Possible matches for your search are:"
-        @search_results.each do |result|
-            puts "#{result["2. name"]} - #{result["1. symbol"]}"
+        if @search_results.length == 0
+            puts "No possible matches found"
+        else
+            puts "Possible matches for your search are:"
+            @search_results.each do |result|
+                puts "#{result["2. name"]} - #{result["1. symbol"]}"
+            end
         end
     end
 end

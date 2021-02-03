@@ -1,21 +1,22 @@
 
-[1mFrom:[0m /home/lukevangorder/Development/code/mod1/stocks-CLI/lib/search.rb:19 Search#print_results:
+[1mFrom:[0m /home/lukevangorder/Development/code/mod1/stocks-CLI/lib/stocks.rb:19 Stock#print_info:
 
-     [1;34m9[0m: [32mdef[0m [1;34mprint_results[0m
-    [1;34m10[0m:     puts [31m[1;31m"[0m[31m[1;31m"[0m[31m[0m
-    [1;34m11[0m:     puts [31m[1;31m"[0m[31mPossible matches for your search are:[1;31m"[0m[31m[0m
-    [1;34m12[0m:     @search_results.each [32mdo[0m |result|
-    [1;34m13[0m:         result.each [32mdo[0m |key, value|
-    [1;34m14[0m:             [32mif[0m key.to_s == [31m[1;31m"[0m[31m1. symbol[1;31m"[0m[31m[0m
-    [1;34m15[0m:                 symbol = value
-    [1;34m16[0m:             [32melsif[0m key.to_s == [31m[1;31m"[0m[31m2. name[1;31m"[0m[31m[0m
-    [1;34m17[0m:                 name = value
-    [1;34m18[0m:             [32mend[0m
- => [1;34m19[0m:             binding.pry
-    [1;34m20[0m:             [32mif[0m symbol && name
-    [1;34m21[0m:                 puts [31m[1;31m"[0m[31m#{name}[0m[31m - #{symbol}[0m[31m[1;31m"[0m[31m[0m
-    [1;34m22[0m:             [32mend[0m
-    [1;34m23[0m:         [32mend[0m
-    [1;34m24[0m:     [32mend[0m
-    [1;34m25[0m: [32mend[0m
+    [1;34m18[0m: [32mdef[0m [1;34mprint_info[0m
+ => [1;34m19[0m:     binding.pry
+    [1;34m20[0m:     [32mif[0m @symbol == [31m[1;31m"[0m[31m[1;31m"[0m[31m[0m
+    [1;34m21[0m:         [32mbegin[0m
+    [1;34m22[0m:             raise [1;34;4mTickerError[0m
+    [1;34m23[0m:         [32mrescue[0m [1;34;4mTickerError[0m => error 
+    [1;34m24[0m:             error.message
+    [1;34m25[0m:         [32mend[0m
+    [1;34m26[0m:     [32melse[0m
+    [1;34m27[0m:         puts [31m[1;31m"[0m[31m[1;31m"[0m[31m[0m
+    [1;34m28[0m:         puts [31m[1;31m"[0m[31mSymbol: #{@symbol}[0m[31m[1;31m"[0m[31m[0m
+    [1;34m29[0m:         puts [31m[1;31m"[0m[31mOpen: #{@open}[0m[31m   Price: #{@price}[0m[31m[1;31m"[0m[31m[0m
+    [1;34m30[0m:         puts [31m[1;31m"[0m[31mHigh: #{@high}[0m[31m   Low:: #{@low}[0m[31m[1;31m"[0m[31m[0m
+    [1;34m31[0m:         puts [31m[1;31m"[0m[31mVolume: #{@volume}[0m[31m   Previous close: #{@previous_close}[0m[31m[1;31m"[0m[31m[0m
+    [1;34m32[0m:         puts [31m[1;31m"[0m[31mLast trading day: #{@latest_trading_day}[0m[31m[1;31m"[0m[31m[0m
+    [1;34m33[0m:         puts [31m[1;31m"[0m[31mChange: #{@change}[0m[31m   Change_percent: #{@change_percent}[0m[31m[1;31m"[0m[31m[0m
+    [1;34m34[0m:     [32mend[0m
+    [1;34m35[0m: [32mend[0m
 

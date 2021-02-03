@@ -17,6 +17,14 @@ class CLI
         puts "5. Update all researched stocks"
         puts "6. Exit program"
         input = gets.strip
+        if input.to_i > options.length || input.to_i <= 0
+            begin
+                raise InputError
+            rescue InputError => error 
+                error.message
+                self.menu
+            end
+        end
         self.send("#{options[input.to_i - 1]}")
     end
     def exit_app #exits application
@@ -38,12 +46,22 @@ class CLI
             puts ""
             puts "Do you want to see any of these stocks in detail? Type the stock symbol if you'd like to, or say menu to return"
             input = gets.strip
+            includes = false
             if input.downcase == "menu"
                 self.menu
             else
                 Stock.all.each do |stock|
                     if stock.symbol == input.upcase
                         stock.print_info
+                        includes = true
+                    end
+                end
+                if includes == false
+                    begin
+                        raise InputError
+                    rescue InputError => error 
+                        error.message
+                        self.stock_history
                     end
                 end
             end
@@ -64,18 +82,14 @@ class CLI
             Stock.delete_all
             puts "History deleted"
             self.menu
+        elsif input != "Y" || input != "N"
+            puts "Invalid user input, self destruct cancelled"
+            self.menu
         end
     end
     def update_stock_info #re-requests the api for each existing stock to update their information
         if Stock.all.length > 0
-            symbols = []
-            Stock.all.each do |stock|
-                symbols << stock.symbol
-            end
-            Stock.delete_all
-            symbols.each do |symbol|
-                Stock.new(symbol)
-            end
+            Stock.refresh
             puts "Stocks in history have been updated!"
             self.menu
         else
@@ -84,9 +98,31 @@ class CLI
         end
     end
     def find_stock_symbols
-        puts "Please enter a word to search for possible related stock symbols"
+        puts "Please enter a one word keyword to search for possible related stock symbols"
         input = gets.strip
+        if input.include?(" ")
+            begin
+                raise SearchError
+            rescue SearchError => error 
+                error.message
+                self.find_stock_symbols
+            end
+        end
         Search.new(input).print_results
         self.menu
+    end
+    class InputError < StandardError
+        def message
+            puts ""
+            puts "Please input a vaild option"
+            puts ""
+        end
+    end
+    class SearchError < StandardError
+        def message
+            puts ""
+            puts "Please input a single keyword"
+            puts ""
+        end
     end
 end
