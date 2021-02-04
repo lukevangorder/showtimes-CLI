@@ -34,6 +34,14 @@ class CLI
     def new_stock #takes a stock symbol and creates a Stock object to gather info
         puts "What is the symbol of the stock you wish to learn more about?"
         symbol = gets.strip
+        if symbol == ""
+            begin
+                raise InputError
+            rescue InputError => error 
+                error.message
+                self.new_stock
+            end
+        end
         symbol.upcase!
         Stock.new(symbol).print_info
         self.menu
@@ -97,10 +105,10 @@ class CLI
             self.menu
         end
     end
-    def find_stock_symbols
+    def find_stock_symbols #takes user input as a keyword and uses the search class to find possible companies
         puts "Please enter a one word keyword to search for possible related stock symbols"
         input = gets.strip
-        if input.include?(" ")
+        if input.include?(" ") || input == ""
             begin
                 raise SearchError
             rescue SearchError => error 
@@ -111,14 +119,14 @@ class CLI
         Search.new(input).print_results
         self.menu
     end
-    class InputError < StandardError
+    class InputError < StandardError #Error for invalid inputs
         def message
             puts ""
             puts "Please input a vaild option"
             puts ""
         end
     end
-    class SearchError < StandardError
+    class SearchError < StandardError #Error for invalid search input
         def message
             puts ""
             puts "Please input a single keyword"

@@ -1,7 +1,7 @@
 class Search
     attr_accessor :search_results
     @@all = []
-    def initialize(keyword)
+    def initialize(keyword) #creates a search object 
         @keyword = keyword
         @search_results = API.new.url_for_search(keyword)
         @@all << self
