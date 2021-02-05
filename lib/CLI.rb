@@ -8,14 +8,7 @@ class CLI
     end
     def menu #the home menu with all options and directory
         options = ["new_stock", "find_stock_symbols", "stock_history", "clear_history", "update_stock_info", "exit_app"]
-        puts ""
-        puts "Please select an option:"
-        puts "1. Check out a new stock"
-        puts "2. Search for stock symbols"
-        puts "3. Look at your check history"
-        puts "4. Clear your history"
-        puts "5. Update all researched stocks"
-        puts "6. Exit program"
+        puts "\nPlease select an option:\n1. Check out a new stock\n2. Search for stock symbols\n3. Look at your check history\n4. Clear your history\n5. Update all researched stocks\n6. Exit program\n"
         input = gets.strip
         if input.to_i > options.length || input.to_i <= 0
             begin
@@ -48,11 +41,8 @@ class CLI
     end
     def stock_history #displays all previously searched stocks, then asks if the user wants to see any of them in detail
         if Stock.all.length > 0
-            puts ""
-            puts "Okay #{@name}, these are the researched stocks in your history:"
-            puts Stock.print_all
-            puts ""
-            puts "Do you want to see any of these stocks in detail? Type the stock symbol if you'd like to, or say menu to return"
+            puts "\nOkay #{@name}, these are the researched stocks in your history:\n\n#{Stock.print_all}"
+            puts "\nDo you want to see any of these stocks in detail? Type the stock symbol if you'd like to, or say menu to return"
             input = gets.strip
             includes = false
             if input.downcase == "menu"
@@ -121,16 +111,12 @@ class CLI
     end
     class InputError < StandardError #Error for invalid inputs
         def message
-            puts ""
-            puts "Please input a vaild option"
-            puts ""
+            puts "\nPlease input a vaild option\n"
         end
     end
     class SearchError < StandardError #Error for invalid search input
         def message
-            puts ""
-            puts "Please input a single keyword"
-            puts ""
+            puts "\nPlease input a single keyword\n"
         end
     end
 end
