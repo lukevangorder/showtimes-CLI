@@ -20,24 +20,27 @@ class Stock
             begin
                 raise TickerError
             rescue TickerError => error 
-                error.message
+                return error.message
             end
         else
-            puts ""
-            puts "Symbol: #{@symbol}"
-            puts "Open: #{@open}   Price: #{@price}"
-            puts "High: #{@high}   Low:: #{@low}"
-            puts "Volume: #{@volume}   Previous close: #{@previous_close}"
-            puts "Last trading day: #{@latest_trading_day}"
-            puts "Change: #{@change}   Change_percent: #{@change_percent}"
+            value = ""
+            value.concat("Symbol: #{@symbol}\n")
+            value.concat("Open: #{@open}   Price: #{@price}\n")
+            value.concat("High: #{@high}   Low:: #{@low}\n")
+            value.concat("Volume: #{@volume}   Previous close: #{@previous_close}\n")
+            value.concat("Last trading day: #{@latest_trading_day}\n")
+            value.concat("Change: #{@change}   Change_percent: #{@change_percent}\n")
+            return value
         end
     end
     def self.print_all
+        value = ""
         @@all.each do |stock|
             if stock.symbol != nil
-                puts "#{stock.symbol}, trading at #{stock.price}"
+                value.concat("#{stock.symbol}, trading at #{stock.price}\n")
             end
         end
+        value
     end
     def self.delete_all
         @@all = []
@@ -54,9 +57,7 @@ class Stock
     end
     class TickerError < StandardError
         def message
-            puts ""
-            puts "No information found for entered symbol, please try again"
-            puts ""
+            return "\nNo information found for entered symbol, please try again\n"
         end
     end
 end

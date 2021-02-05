@@ -43,14 +43,14 @@ class CLI
             end
         end
         symbol.upcase!
-        Stock.new(symbol).print_info
+        puts Stock.new(symbol).print_info
         self.menu
     end
     def stock_history #displays all previously searched stocks, then asks if the user wants to see any of them in detail
         if Stock.all.length > 0
             puts ""
             puts "Okay #{@name}, these are the researched stocks in your history:"
-            Stock.print_all
+            puts Stock.print_all
             puts ""
             puts "Do you want to see any of these stocks in detail? Type the stock symbol if you'd like to, or say menu to return"
             input = gets.strip
@@ -60,7 +60,7 @@ class CLI
             else
                 Stock.all.each do |stock|
                     if stock.symbol == input.upcase
-                        stock.print_info
+                        puts stock.print_info
                         includes = true
                     end
                 end
