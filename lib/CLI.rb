@@ -116,7 +116,7 @@ class CLI
                 self.find_stock_symbols
             end
         end
-        Search.new(input).print_results
+        puts Search.new(input).print_results
         self.menu
     end
     class InputError < StandardError #Error for invalid inputs

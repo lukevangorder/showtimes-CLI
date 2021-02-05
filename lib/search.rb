@@ -6,15 +6,16 @@ class Search
         @search_results = API.new.url_for_search(keyword)
         @@all << self
     end
-    def print_results
-        puts ""
+    def print_results #returns a printed list of all search results
+        list = "\n"
         if @search_results.length == 0
-            puts "No possible matches found"
+            list.concat("No possible matches found")
         else
-            puts "Possible matches for your search are:"
+            list.concat("Possible matches for your search are:\n")
             @search_results.each do |result|
-                puts "#{result["2. name"]} - #{result["1. symbol"]}"
+                list.concat("#{result["2. name"]} - #{result["1. symbol"]}\n")
             end
         end
+        list
     end
 end
