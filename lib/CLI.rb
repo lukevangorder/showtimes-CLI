@@ -7,8 +7,8 @@ class CLI
         self.menu
     end
     def menu #the home menu with all options and directory
-        options = ["new_stock", "find_stock_symbols", "stock_history", "clear_history", "update_stock_info", "exit_app"]
-        puts "\nPlease select an option:\n1. Check out a new stock\n2. Search for stock symbols\n3. Look at your check history\n4. Clear your history\n5. Update all researched stocks\n6. Exit program\n"
+        options = ["new_stock", "find_stock_symbols", "stock_history", "clear_history", "exit_app"]
+        puts "\nPlease select an option:\n1. Check out a new stock\n2. Search for stock symbols\n3. Look at your check history\n4. Clear your history\n5. Exit program\n"
         input = gets.strip
         if input.to_i > options.length || input.to_i <= 0
             begin
@@ -85,16 +85,16 @@ class CLI
             self.menu
         end
     end
-    def update_stock_info #re-requests the api for each existing stock to update their information
-        if Stock.all.length > 0
-            Stock.refresh
-            puts "Stocks in history have been updated!"
-            self.menu
-        else
-            puts "There are no stocks in your history to update #{@name}!"
-            self.menu
-        end
-    end
+    # def update_stock_info #re-requests the api for each existing stock to update their information
+    #     if Stock.all.length > 0
+    #         Stock.refresh
+    #         puts "Stocks in history have been updated!"
+    #         self.menu
+    #     else
+    #         puts "There are no stocks in your history to update #{@name}!"
+    #         self.menu
+    #     end
+    # end
     def find_stock_symbols #takes user input as a keyword and uses the search class to find possible companies
         puts "Please enter a one word keyword to search for possible related stock symbols"
         input = gets.strip
