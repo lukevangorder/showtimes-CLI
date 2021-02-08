@@ -10,7 +10,7 @@ class CLI
         options = ["new_stock", "find_stock_symbols", "stock_history", "clear_history", "exit_app"]
         puts "\nPlease select an option:\n1. Check out a new stock\n2. Search for stock symbols\n3. Look at your check history\n4. Clear your history\n5. Exit program\n"
         input = gets.strip
-        if input.to_i > options.length || input.to_i <= 0
+        if input.to_i > options.length || input.to_i <= 0 || input.length > 1
             begin
                 raise InputError
             rescue InputError => error 
