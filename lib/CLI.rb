@@ -49,7 +49,7 @@ class CLI
                 self.menu
             else
                 Stock.all.each do |stock|
-                    if stock.symbol == input.upcase
+                    if stock.symbol == input.upcase || Stock.all.index(stock) == input.to_i - 1
                         puts stock.print_info
                         includes = true
                     end

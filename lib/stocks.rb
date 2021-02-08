@@ -37,7 +37,7 @@ class Stock
         value = ""
         @@all.each do |stock|
             if stock.symbol != nil
-                value.concat("#{stock.symbol}, trading at #{stock.price}\n")
+                value.concat("#{@@all.index(stock) + 1}. #{stock.symbol}, trading at #{stock.price}\n")
             end
         end
         value
