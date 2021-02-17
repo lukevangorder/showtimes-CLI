@@ -85,16 +85,6 @@ class CLI
             self.menu
         end
     end
-    # def update_stock_info #re-requests the api for each existing stock to update their information
-    #     if Stock.all.length > 0
-    #         Stock.refresh
-    #         puts "Stocks in history have been updated!"
-    #         self.menu
-    #     else
-    #         puts "There are no stocks in your history to update #{@name}!"
-    #         self.menu
-    #     end
-    # end
     def find_stock_symbols #takes user input as a keyword and uses the search class to find possible companies
         puts "Please enter a one word keyword to search for possible related stock symbols"
         input = gets.strip
